@@ -4,4 +4,4 @@
 ## [冒泡排序](./bubble.cpp)
 时间复杂度o(cn<sup>2</sup>)
 ## [插入排序](./inert.cpp)
-时间复杂度o(n<sup>2</sup>)
+时间复杂度o(cn<sup>2</sup>)
