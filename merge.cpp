@@ -1,56 +1,41 @@
+#include <cstdio>
 #include <iostream>
+#include <cmath>
+#include <algorithm>
 using namespace std;
-void merge(int *a, int low, int high, int mid)
+
+void merge(int a[], int left, int mid, int right)
 {
-	int left = mid - low + 1;
-	int right = high - mid;
-	int L[left], R[right];
-	int i, j;
-	for(i = 0; i < left; i++)
-		L[i] = a[i + low];
-	for(j = 0; j < right; j++)
-		R[j] = a[mid + j + 1];
-	i = 0;
-	j = 0;
-	int k = low;
-	while(i < left && j < right){
-		if(L[i] <= R[j]){
-			a[k] = L[i];
-			i++;
-		}
-		else {
-			a[k] = R[j];
-			j++;
-		}
-		k++;
-	}
-	while(i < left){
-		a[k] = L[i];
-		i++;
-		k++;
-	}
-	while(j < right){
-		a[k] = R[j];
-		j++;
-		k++;
-	}
+    int index = 0;
+    int temp[10];
+    int i = left, j = mid+1;
+    while (i <= mid && j<=right){
+        if(a[i] <= a[j])
+            temp[index++] = a[i++];
+        else
+            temp[index++] = a[j++];
+    }
+    while(i <= mid) temp[index++] = a[i++];
+    while(j <= right) temp[index++] = a[j++];
+    for (int k = 0; k < index; ++k) {
+        a[left+k] = temp[k];
+    }
 }
-void mergesort(int *a, int low, int high)
+void mergeSort(int a[], int left, int right)
 {
-	int m;
-	if(low < high){
-		m = (high + low)/2;
-		mergesort(a, low, m);
-		mergesort(a, m+1, high);
-		merge(a, low, high, m);
-	}
+    if(left < right){
+        int mid = (left+right) / 2;
+        mergeSort(a, left, mid);
+        mergeSort(a, mid+1, right);
+        merge(a, left, mid, right);
+    }
 }
 int main()
 {
-	int a[10] = {1, 3, 5, 6, 10, 9, 7, 4, 2, 8};
-	mergesort(a, 0, 9);
-	for(int i = 0; i < 10; i++)
-		cout << a[i] << endl;
-	return 0;
+    int a[10] = {3, 5, 2, 1, 8, 7, 6, 9, 0, 4};
+    mergeSort(a, 0, 9);
+    for (int i = 0; i < 10; ++i) {
+        cout << a[i] << " ";
+    }
+    return 0;
 }
-
