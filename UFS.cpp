@@ -5,7 +5,7 @@
 #include <queue>
 using namespace std;
 int father[103];
-int Father(int x){
+int Father(int x){ //查找根，并进行路径压缩
 	int a = x;
 	while(x != father[x])
 		x = father[x];
@@ -16,7 +16,7 @@ int Father(int x){
 	}
 	return x;
 }
-void uion(int a, int b){
+void uion(int a, int b){  //判断两个是否为同一组
 	int fa = Father(a);
 	int fb = Father(b);
 	if(fa != fb){
